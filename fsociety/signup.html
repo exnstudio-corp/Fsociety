@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F-Society — Register</title>
+  <meta name="description" content="Create an account on F-Society — the cybersecurity education platform by EXN Studio.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://exn-studio.netlify.app/signup.html">
+
+  <meta property="og:title" content="F-Society — Register">
+  <meta property="og:description" content="Join F-Society for cybersecurity education and ethical hacking discussions.">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="F-Society — Register">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='4' y='24' font-size='20' fill='%2300ff41' font-family='monospace'>F</text></svg>">
+
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-inline';
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+    font-src 'self' https://fonts.gstatic.com;
+    img-src 'self' data:;
+    connect-src 'self' https://*.supabase.co;
+    frame-src 'none'; object-src 'none';
+  ">
+
+  <script src="/.netlify/functions/env"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+  <div id="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>
+
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="logo-text">F-SOCIETY</div>
+      <div class="logo-sub">Create Account</div>
+    </div>
+
+    <div class="auth-card" role="main">
+      <h1 class="sr-only">Register for F-Society</h1>
+      <h2>Create Account</h2>
+
+      <!-- Rate limit notice -->
+      <div id="rate-limit-box" class="rate-limit-box" role="alert" aria-live="assertive">
+        <div class="rate-limit-label">
+          <ion-icon name="warning-outline" aria-hidden="true"></ion-icon>
+          Registration temporarily disabled
+        </div>
+        <div class="rate-limit-countdown" id="rl-countdown">--:--:--</div>
+        <div class="rate-limit-label" style="margin-top:4px;">
+          Too many attempts. Registration available again in:
+        </div>
+      </div>
+
+      <form id="signup-form" novalidate aria-label="Registration form">
+
+        <!-- Username -->
+        <div class="form-group">
+          <label class="form-label" for="username">
+            Username
+            <span class="text-muted" style="font-size:0.68rem;">(4–24 chars, letters/numbers/underscores)</span>
+          </label>
+          <div class="form-input-wrap">
+            <ion-icon name="at-outline" aria-hidden="true"></ion-icon>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              autocomplete="username"
+              placeholder="your_handle"
+              maxlength="24"
+              pattern="^[a-zA-Z0-9_]{4,24}$"
+              required
+              aria-required="true"
+              aria-describedby="username-error"
+            >
+          </div>
+          <span class="field-error" id="username-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="form-input-wrap">
+            <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="new-password"
+              placeholder="••••••••••••••"
+              required
+              aria-required="true"
+              aria-describedby="pw-strength"
+            >
+            <button type="button" class="toggle-pass" data-target="password"
+                    aria-label="Show password">
+              <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+          <!-- Strength indicator injected by auth.js -->
+          <div id="pw-strength" class="pw-strength" aria-label="Password requirements" role="group"></div>
+        </div>
+
+        <!-- Confirm password -->
+        <div class="form-group">
+          <label class="form-label" for="confirm-password">Confirm Password</label>
+          <div class="form-input-wrap">
+            <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              autocomplete="new-password"
+              placeholder="••••••••••••••"
+              required
+              aria-required="true"
+              aria-describedby="confirm-error"
+            >
+            <button type="button" class="toggle-pass" data-target="confirm-password"
+                    aria-label="Show confirm password">
+              <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+          <span class="field-error" id="confirm-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <!-- Terms -->
+        <div class="form-group">
+          <label class="form-check">
+            <input
+              type="checkbox"
+              id="terms-check"
+              name="terms"
+              required
+              aria-required="true"
+              aria-describedby="terms-error"
+            >
+            I agree to the
+            <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+            and
+            <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+            I am at least 18 years of age.
+          </label>
+          <span class="field-error" id="terms-error" role="alert"></span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary w-full" id="signup-btn"
+                aria-label="Create F-Society account">
+          <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="auth-footer mt-md">
+        <p>Already have an account? <a href="login.html">Login</a></p>
+        <p class="mt-sm">
+          <a href="warning.html">Full Warning</a> ·
+          <a href="terms.html">Terms</a> ·
+          <a href="privacy.html">Privacy</a>
+        </p>
+      </div>
+    </div>
+
+    <p class="auth-footer mt-lg" style="text-align:center;font-size:0.7rem;">
+      &copy; 2025 <a href="https://exn-studio.netlify.app" target="_blank" rel="noopener">EXN Studio</a>.
+      For educational use only.
+    </p>
+  </div>
+
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Bind password toggle
+      document.querySelectorAll('.toggle-pass').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const input = document.getElementById(btn.dataset.target);
+          if (!input) return;
+          const show = input.type === 'password';
+          input.type = show ? 'text' : 'password';
+          const icon = btn.querySelector('ion-icon');
+          if (icon) icon.name = show ? 'eye-off-outline' : 'eye-outline';
+          btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+      });
+
+      Auth.initSignup();
+    });
+  </script>
+</body>
+</html>

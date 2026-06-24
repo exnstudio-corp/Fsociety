@@ -1,0 +1,69 @@
+# netlify.toml — F-Society Netlify Configuration
+# EXN STUDIO
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# ── Pretty URL routing ────────────────────────────────────
+[[redirects]]
+  from  = "/app"
+  to    = "/index.html"
+  status = 200
+
+[[redirects]]
+  from  = "/login"
+  to    = "/login.html"
+  status = 200
+
+[[redirects]]
+  from  = "/signup"
+  to    = "/signup.html"
+  status = 200
+
+[[redirects]]
+  from  = "/warning"
+  to    = "/warning.html"
+  status = 200
+
+[[redirects]]
+  from  = "/privacy"
+  to    = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from  = "/terms"
+  to    = "/terms.html"
+  status = 200
+
+# ── Security headers ──────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options            = "DENY"
+    X-Content-Type-Options     = "nosniff"
+    X-XSS-Protection           = "1; mode=block"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    Permissions-Policy         = "camera=(), microphone=(), geolocation=(), payment=()"
+    Strict-Transport-Security  = "max-age=63072000; includeSubDomains; preload"
+
+# Cache static assets aggressively, HTML never
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"

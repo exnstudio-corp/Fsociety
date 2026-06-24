@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F-Society — Login</title>
+  <meta name="description" content="Login to F-Society — the cybersecurity education platform.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://exn-studio.netlify.app/login.html">
+
+  <!-- OG -->
+  <meta property="og:title" content="F-Society — Login">
+  <meta property="og:description" content="Access the F-Society cybersecurity education platform.">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="F-Society — Login">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='4' y='24' font-size='20' fill='%2300ff41' font-family='monospace'>F</text></svg>">
+
+  <!-- CSP -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-inline';
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+    font-src 'self' https://fonts.gstatic.com;
+    img-src 'self' data:;
+    connect-src 'self' https://*.supabase.co;
+    frame-src 'none'; object-src 'none';
+  ">
+
+  <!-- Supabase -->
+  <script src="/.netlify/functions/env"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Ion Icons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+  <!-- ── SPLASH SCREEN (first visit only) ── -->
+  <div id="splash-screen" role="dialog" aria-modal="true"
+       aria-labelledby="splash-title" aria-describedby="splash-desc">
+
+    <div class="splash-logo" aria-hidden="true">F-SOCIETY</div>
+    <div class="splash-tagline">by EXN STUDIO · cybersecurity education</div>
+
+    <div class="splash-warning-box" role="region" aria-label="Warning">
+      <div class="warn-title">
+        <ion-icon name="warning-outline" aria-hidden="true"></ion-icon>
+        <span id="splash-title">Warning — Read Before Continuing</span>
+      </div>
+      <p id="splash-desc">
+        F-Society is an <strong>educational cybersecurity platform</strong>.
+        All content is for authorized learning and ethical research only.
+        You must be <strong>18 or older</strong> to access this platform.
+        Users are solely responsible for any actions they take.
+        Unauthorized hacking is illegal. EXN Studio accepts no liability for misuse.
+      </p>
+    </div>
+
+    <div class="splash-actions">
+      <button class="btn btn-primary" id="splash-continue-btn"
+              aria-label="I understand, continue to F-Society">
+        <ion-icon name="checkmark-outline" aria-hidden="true"></ion-icon>
+        I Understand — Continue
+      </button>
+      <a href="warning.html" class="btn btn-ghost"
+         aria-label="Read the full warning document">
+        <ion-icon name="document-text-outline" aria-hidden="true"></ion-icon>
+        Full Warning
+      </a>
+    </div>
+
+    <p style="margin-top:24px;font-size:0.68rem;color:var(--text-muted);max-width:400px;text-align:center;">
+      By continuing, you confirm you are 18+ and agree to the
+      <a href="terms.html">Terms &amp; Conditions</a> and
+      <a href="privacy.html">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <div id="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>
+
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="logo-text">F-SOCIETY</div>
+      <div class="logo-sub">Cybersecurity Education Platform</div>
+    </div>
+
+    <div class="auth-card" role="main">
+      <h1 class="sr-only">Login to F-Society</h1>
+      <h2>Access System</h2>
+
+      <form id="login-form" novalidate aria-label="Login form">
+
+        <!-- Username -->
+        <div class="form-group">
+          <label class="form-label" for="l-username">Username</label>
+          <div class="form-input-wrap">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <input
+              type="text"
+              id="l-username"
+              name="username"
+              autocomplete="username"
+              placeholder="your_username"
+              required
+              aria-required="true"
+              aria-describedby="l-username-desc"
+            >
+          </div>
+          <span class="sr-only" id="l-username-desc">Enter your registered username</span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label" for="l-password">Password</label>
+          <div class="form-input-wrap">
+            <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+            <input
+              type="password"
+              id="l-password"
+              name="password"
+              autocomplete="current-password"
+              placeholder="••••••••••••"
+              required
+              aria-required="true"
+            >
+            <button type="button" class="toggle-pass" data-target="l-password"
+                    aria-label="Show password">
+              <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember me -->
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" id="remember-me" name="remember-me">
+            Remember me on this device
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary w-full" id="login-btn"
+                aria-label="Login to F-Society">
+          <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
+          Access System
+        </button>
+
+      </form>
+
+      <div class="auth-footer">
+        <p>No account? <a href="signup.html">Register</a></p>
+        <p class="mt-sm">
+          <a href="warning.html">Read full warning</a> ·
+          <a href="privacy.html">Privacy Policy</a> ·
+          <a href="terms.html">Terms</a>
+        </p>
+      </div>
+    </div>
+
+    <p class="auth-footer mt-lg" style="text-align:center;font-size:0.7rem;">
+      &copy; 2025 <a href="https://exn-studio.netlify.app" target="_blank" rel="noopener">EXN Studio</a>.
+      Educational use only.
+    </p>
+  </div>
+
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    /* ── SPLASH SCREEN ── */
+    const SPLASH_KEY = 'fsoc_splash_ack';
+
+    function initSplash() {
+      const splash = document.getElementById('splash-screen');
+      const continueBtn = document.getElementById('splash-continue-btn');
+      if (!splash) return;
+
+      // Already acknowledged?
+      if (localStorage.getItem(SPLASH_KEY) === '1') {
+        splash.style.display = 'none';
+        return;
+      }
+
+      // Show splash, block body scroll
+      document.body.style.overflow = 'hidden';
+      continueBtn && continueBtn.focus();
+
+      continueBtn && continueBtn.addEventListener('click', () => {
+        localStorage.setItem(SPLASH_KEY, '1');
+        splash.style.opacity = '0';
+        splash.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => {
+          splash.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 320);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initSplash();
+      // Redirect if already logged in
+      const user = await Auth.checkSession();
+      if (user) { window.location.href = 'index.html'; return; }
+      Auth.initLogin();
+    });
+  </script>
+</body>
+</html>

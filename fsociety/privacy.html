@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F-Society — Privacy Policy</title>
+  <meta name="description" content="F-Society Privacy Policy — how we collect, store, and handle your data.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://exn-studio.netlify.app/privacy.html">
+
+  <meta property="og:title" content="F-Society — Privacy Policy">
+  <meta property="og:description" content="Learn how F-Society handles your personal data.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='4' y='24' font-size='20' fill='%2300ff41' font-family='monospace'>F</text></svg>">
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="legal-page" role="main">
+
+    <a href="login.html" class="page-back" aria-label="Back to login">
+      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+      Back
+    </a>
+
+    <div style="font-size:1.2rem;color:var(--accent);letter-spacing:0.08em;margin-bottom:4px;">F-SOCIETY</div>
+    <h1>Privacy Policy</h1>
+    <p class="legal-date">Last updated: January 2025 · Operated by EXN Studio</p>
+
+    <div class="legal-section">
+      <h2>Overview</h2>
+      <p>
+        F-Society ("the Platform") is operated by EXN Studio. This Privacy Policy explains what
+        information we collect, how we use it, and what rights you have regarding your data.
+        By using F-Society, you consent to the practices described in this document.
+      </p>
+      <p>
+        We are committed to minimizing data collection and never selling your information to
+        third parties.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Information We Collect</h2>
+      <p>We collect only what is necessary to operate the platform:</p>
+      <ul>
+        <li>
+          <strong>Username</strong> — chosen by you during registration. Used to identify you
+          within the platform and in the chat system.
+        </li>
+        <li>
+          <strong>Authentication data</strong> — a hashed password managed securely by Supabase
+          Authentication. We never store your plaintext password.
+        </li>
+        <li>
+          <strong>Account metadata</strong> — your account creation timestamp and a derived
+          member ID. Not linked to any external identity.
+        </li>
+        <li>
+          <strong>Chat messages</strong> — text messages you post in the global chat are stored
+          in our database and visible to all logged-in members.
+        </li>
+        <li>
+          <strong>Uploaded text files</strong> — .txt files you voluntarily upload to the chat
+          are stored in Supabase Storage and available for download by other members.
+        </li>
+        <li>
+          <strong>Usage timing data</strong> — approximate timestamps of actions (message sent,
+          file uploaded) for moderation and rate-limiting purposes.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <h2>Information We Do NOT Collect</h2>
+      <ul>
+        <li>Real name, government-issued ID, or national identification</li>
+        <li>Banking information, payment details, or financial records</li>
+        <li>Phone number or physical address</li>
+        <li>Email address (our system uses an internal identifier, not your real email)</li>
+        <li>Browser fingerprint or device hardware identifiers</li>
+        <li>Location data beyond what your browser may expose in requests</li>
+        <li>Behavioral tracking or advertising profiles</li>
+      </ul>
+      <p>
+        We do not use analytics platforms (e.g., Google Analytics), advertising networks,
+        or third-party tracking pixels.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>How We Use Your Information</h2>
+      <ul>
+        <li>To create and authenticate your account</li>
+        <li>To display your username in the chat and throughout the platform</li>
+        <li>To enforce daily upload limits and registration rate limits</li>
+        <li>To store and serve chat messages and uploaded files to logged-in members</li>
+        <li>To schedule and process account deletions when requested</li>
+        <li>To maintain platform security and prevent abuse</li>
+      </ul>
+      <p>
+        We do not use your data for marketing, profiling, or any purpose beyond
+        operating the platform.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Data Storage and Security</h2>
+      <p>
+        Your data is stored using <strong>Supabase</strong>, a secure backend-as-a-service
+        platform. Supabase applies row-level security (RLS) policies to control access.
+        Passwords are hashed using industry-standard algorithms and are never stored in plaintext.
+      </p>
+      <p>
+        The platform is hosted on <strong>Netlify</strong>. Environment variables and API keys
+        are stored in Netlify's encrypted environment variable system and are never exposed
+        in client-side code.
+      </p>
+      <p>
+        Despite these measures, no system is 100% secure. You are responsible for keeping
+        your account credentials safe and for the content you choose to share.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>User-Generated Content</h2>
+      <p>
+        Content you post — chat messages and uploaded .txt files — is visible to all
+        registered members of F-Society. You are solely responsible for the content you share.
+        Do not post content that violates our Terms &amp; Conditions or applicable law.
+      </p>
+      <p>
+        EXN Studio may remove content at any time if it violates community standards,
+        without prior notice.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Local Storage</h2>
+      <p>
+        F-Society uses your browser's <code>localStorage</code> to store:
+      </p>
+      <ul>
+        <li>Splash screen acknowledgement (to avoid showing it on every visit)</li>
+        <li>Registration rate-limit state (to enforce the 24-hour window client-side)</li>
+        <li>Daily file upload count (to enforce the 3-files-per-day limit client-side)</li>
+        <li>Your username (for display purposes after login)</li>
+      </ul>
+      <p>
+        This data is stored only in your browser and is not transmitted to our servers.
+        Clearing your browser data will reset these states.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Data Retention</h2>
+      <ul>
+        <li>Chat messages are retained indefinitely unless removed by moderation.</li>
+        <li>Uploaded files are retained until manually removed or upon account deletion.</li>
+        <li>
+          Account data is retained until deletion is confirmed. After a 14-day grace period
+          following a deletion request, your account and associated data are permanently removed.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <h2>Third-Party Services</h2>
+      <p>
+        F-Society uses the following third-party services. Their respective privacy policies govern
+        the data they process:
+      </p>
+      <ul>
+        <li><strong>Supabase</strong> — database, authentication, and file storage (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a>)</li>
+        <li><strong>Netlify</strong> — hosting and edge functions (<a href="https://netlify.com/privacy" target="_blank" rel="noopener">netlify.com/privacy</a>)</li>
+        <li><strong>JSONBin.io</strong> — educational article storage (<a href="https://jsonbin.io/privacy-policy" target="_blank" rel="noopener">jsonbin.io/privacy-policy</a>)</li>
+        <li><strong>Ionicons (unpkg CDN)</strong> — icon assets</li>
+        <li><strong>Google Fonts</strong> — typography</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Request deletion of your account and associated data at any time through the Account section</li>
+        <li>Know what data is stored about you (limited to username, join date, member ID, messages, and files)</li>
+        <li>Refrain from sharing any information beyond what registration requires</li>
+      </ul>
+      <p>
+        For data-related requests not covered by the in-app tools, contact EXN Studio through
+        the official website: <a href="https://exn-studio.netlify.app" target="_blank" rel="noopener">exn-studio.netlify.app</a>.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. Changes will be reflected by
+        updating the "Last updated" date at the top of this page. Continued use of the platform
+        after changes constitutes acceptance of the revised policy.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>Contact</h2>
+      <p>
+        Questions about this Privacy Policy can be directed to EXN Studio at:
+        <a href="https://exn-studio.netlify.app" target="_blank" rel="noopener">exn-studio.netlify.app</a>
+      </p>
+    </div>
+
+    <p style="font-size:0.7rem;color:var(--text-muted);padding:var(--space-xl) 0;text-align:center;">
+      &copy; 2025 EXN Studio. All rights reserved.
+      <br>
+      <a href="terms.html">Terms &amp; Conditions</a> ·
+      <a href="warning.html">Warning</a> ·
+      <a href="login.html">Login</a>
+    </p>
+
+  </div>
+</body>
+</html>

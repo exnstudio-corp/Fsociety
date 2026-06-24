@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- ── SEO ── -->
+  <title>F-Society — Cybersecurity Education Platform</title>
+  <meta name="description" content="F-Society is an educational cybersecurity platform for ethical hacking discussions, offensive and defensive security learning, and community knowledge sharing.">
+  <meta name="keywords" content="cybersecurity, ethical hacking, penetration testing, network security, education, F-Society, EXN Studio">
+  <link rel="canonical" href="https://exn-studio.netlify.app/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:title" content="F-Society — Cybersecurity Education Platform">
+  <meta property="og:description" content="Join F-Society for ethical hacking discussions, cybersecurity education, and community knowledge sharing.">
+  <meta property="og:image" content="https://exn-studio.netlify.app/assets/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://exn-studio.netlify.app/">
+  <meta property="og:site_name" content="F-Society by EXN Studio">
+
+  <!-- ── Twitter/X Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="F-Society — Cybersecurity Education Platform">
+  <meta name="twitter:description" content="Ethical hacking and cybersecurity education for the modern era.">
+  <meta name="twitter:image" content="https://exn-studio.netlify.app/assets/og-image.png">
+
+  <!-- ── Favicon ── -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='4' y='24' font-size='20' fill='%2300ff41' font-family='monospace'>F</text></svg>">
+
+  <!-- ── Env vars injected by Netlify edge function ── -->
+  <script src="/.netlify/functions/env"></script>
+
+  <!-- ── Supabase CDN ── -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+
+  <!-- ── Ion Icons ── -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- ── Styles ── -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ── CSP (Content Security Policy) ── -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-inline';
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+    font-src 'self' https://fonts.gstatic.com;
+    img-src 'self' data: https:;
+    connect-src 'self' https://*.supabase.co https://api.jsonbin.io wss://*.supabase.co;
+    worker-src 'none';
+    frame-src 'none';
+    object-src 'none';
+  ">
+</head>
+<body>
+
+  <!-- ── TERMINAL LOADER ── -->
+  <div id="terminal-loader" role="status" aria-label="Loading F-Society">
+    <div class="terminal-window">
+      <div class="terminal-bar">
+        <span class="term-dot"></span>
+        <span class="term-dot"></span>
+        <span class="term-dot"></span>
+        <span class="term-title">f-society :: boot</span>
+      </div>
+      <div class="terminal-body" id="term-body">
+        <div class="term-line active">
+          <span class="term-prompt">$</span>
+          <span>Initializing F-Society...</span>
+        </div>
+        <span class="cursor-blink" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOAST CONTAINER ── -->
+  <div id="toast-container" role="region" aria-label="Notifications" aria-live="polite"></div>
+
+  <!-- ── MAIN APP (hidden until session confirmed) ── -->
+  <div id="app" aria-hidden="true">
+
+    <!-- ── DESKTOP SIDEBAR ── -->
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-logo">
+        <div class="logo-mark">F-SOCIETY</div>
+        <div class="logo-by">by EXN STUDIO</div>
+      </div>
+
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <div class="nav-item" data-section="learn" role="button" tabindex="0"
+               aria-current="page" aria-label="Learn - educational content">
+            <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+            Learn
+          </div>
+        </li>
+        <li>
+          <div class="nav-item" data-section="chat" role="button" tabindex="0"
+               aria-current="false" aria-label="Chat - community discussion">
+            <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+            Chat
+          </div>
+        </li>
+        <li>
+          <div class="nav-item" data-section="account" role="button" tabindex="0"
+               aria-current="false" aria-label="Account settings">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            Account
+          </div>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar" id="sidebar-avatar" aria-hidden="true">??</div>
+          <span class="sidebar-username" id="sidebar-username">Loading...</span>
+        </div>
+        <button class="btn-logout" data-action="logout"
+                aria-label="Logout from F-Society">
+          <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content" role="main">
+
+      <!-- ═══ LEARN PANEL ═══ -->
+      <section id="learn-panel" class="section-panel active" aria-labelledby="learn-heading">
+        <div class="section-header">
+          <h1 class="section-title" id="learn-heading">
+            <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+            Knowledge Base
+          </h1>
+        </div>
+
+        <!-- Search -->
+        <div class="search-bar-wrap">
+          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search by topic, tag, or phrase..."
+            aria-label="Search articles"
+            autocomplete="off"
+          >
+        </div>
+
+        <!-- Tag cloud -->
+        <div id="tag-cloud" class="search-tags" role="group" aria-label="Filter by tag"></div>
+
+        <!-- Articles -->
+        <div id="articles-grid" class="articles-grid" role="feed" aria-label="Articles"></div>
+      </section>
+
+      <!-- ═══ CHAT PANEL ═══ -->
+      <section id="chat-panel" class="section-panel" aria-labelledby="chat-heading">
+        <div class="section-header">
+          <h1 class="section-title" id="chat-heading">
+            <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+            Global Chat
+          </h1>
+        </div>
+
+        <div class="chat-layout">
+          <!-- Messages -->
+          <div id="chat-messages" class="chat-messages"
+               role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions"></div>
+
+          <!-- Input area -->
+          <div class="chat-input-area">
+            <div class="chat-input-row">
+              <textarea
+                id="chat-textarea"
+                placeholder="Type a message... (Enter to send, Shift+Enter for newline)"
+                aria-label="Chat message input"
+                maxlength="500"
+                rows="1"
+              ></textarea>
+              <button class="btn btn-primary" id="chat-send-btn"
+                      aria-label="Send message" disabled>
+                <ion-icon name="send-outline" aria-hidden="true"></ion-icon>
+              </button>
+            </div>
+            <div class="chat-toolbar">
+              <button class="btn btn-ghost btn-sm" id="chat-upload-btn"
+                      aria-label="Upload a .txt file (max 5KB)">
+                <ion-icon name="attach-outline" aria-hidden="true"></ion-icon>
+                Attach .txt
+              </button>
+              <input type="file" id="file-upload-input" accept=".txt" aria-hidden="true" tabindex="-1">
+              <span class="upload-limit-info" id="upload-count" aria-live="polite">
+                0/3 uploads today
+              </span>
+              <span class="chat-char-count" id="char-count" aria-live="polite">0/500</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ ACCOUNT PANEL ═══ -->
+      <section id="account-panel" class="section-panel" aria-labelledby="account-heading">
+        <div class="section-header">
+          <h1 class="section-title" id="account-heading">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            Account
+          </h1>
+        </div>
+
+        <div class="account-grid">
+
+          <!-- Pending deletion notice -->
+          <div id="pending-deletion-notice" class="pending-deletion-notice" role="alert">
+            <strong>Account deletion scheduled.</strong>
+            <div class="pending-countdown" id="deletion-countdown"></div>
+          </div>
+
+          <!-- Profile card -->
+          <div class="account-card">
+            <h2>Profile</h2>
+            <div class="profile-row">
+              <div class="profile-avatar-lg" id="profile-avatar" aria-hidden="true">??</div>
+              <div class="profile-info">
+                <div class="profile-username" id="profile-username">Loading...</div>
+                <div class="profile-joined text-muted" id="profile-joined"></div>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="info-label">Username</span>
+              <span class="info-value" id="profile-email">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Member Since</span>
+              <span class="info-value" id="profile-joined-detail">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Member ID</span>
+              <span class="info-value" id="profile-member-id">—</span>
+            </div>
+          </div>
+
+          <!-- Danger zone -->
+          <div class="account-card">
+            <h2>Danger Zone</h2>
+            <p class="text-secondary mb-md" style="font-size:0.82rem;line-height:1.6;">
+              Deleting your account is permanent after a 14-day grace period.
+              Logging in during that window will cancel deletion.
+            </p>
+            <button class="btn btn-danger" id="delete-account-btn"
+                    aria-label="Request account deletion">
+              <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+              Delete Account
+            </button>
+          </div>
+
+          <!-- Logout -->
+          <div class="account-card">
+            <h2>Session</h2>
+            <button class="btn btn-ghost" data-action="logout"
+                    aria-label="Logout from F-Society">
+              <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+              Logout
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── MOBILE NAV ── -->
+    <nav class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+      <div class="mobile-nav-inner">
+        <button class="mobile-nav-item active" data-section="learn"
+                aria-label="Learn" aria-current="page">
+          <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+          Learn
+        </button>
+        <button class="mobile-nav-item" data-section="chat"
+                aria-label="Chat" aria-current="false">
+          <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+          Chat
+        </button>
+        <button class="mobile-nav-item" data-section="account"
+                aria-label="Account" aria-current="false">
+          <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+          Account
+        </button>
+      </div>
+    </nav>
+
+  </div><!-- /#app -->
+
+  <!-- ═══ ARTICLE READER MODAL ═══ -->
+  <div id="article-modal" class="modal-overlay hidden"
+       role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close-btn"
+              aria-label="Close article" onclick="Learn.closeModal()">
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="article-tags mb-md" id="modal-tags"></div>
+      <div class="modal-content" id="modal-content-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══ DOWNLOAD WARNING MODAL ═══ -->
+  <div id="download-modal" class="modal-overlay hidden"
+       role="dialog" aria-modal="true" aria-labelledby="dl-modal-heading" aria-hidden="true">
+    <div class="modal-box" style="max-width:440px;">
+      <h2 class="modal-title" id="dl-modal-heading" style="font-size:1rem;color:var(--warning);">
+        <ion-icon name="warning-outline" aria-hidden="true"></ion-icon>
+        File Download Warning
+      </h2>
+      <div class="dl-modal-warn">
+        This file was uploaded by another user.
+        EXN STUDIO cannot verify the safety of shared files.
+      </div>
+      <div class="dl-modal-body">
+        You are about to download:
+        <strong id="dl-filename" style="color:var(--text-primary);"></strong><br><br>
+        Only proceed if you trust the source.
+        Inspect the file before opening.
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="dl-cancel-btn">Cancel</button>
+        <button class="btn btn-danger" id="dl-proceed-btn">
+          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+          Download Anyway
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DELETE ACCOUNT MODAL ═══ -->
+  <div id="delete-modal" class="modal-overlay hidden"
+       role="dialog" aria-modal="true" aria-labelledby="delete-modal-heading" aria-hidden="true">
+    <div class="modal-box" style="max-width:440px;">
+      <h2 class="modal-title" id="delete-modal-heading" style="font-size:1rem;color:var(--danger);">
+        <ion-icon name="warning-outline" aria-hidden="true"></ion-icon>
+        Confirm Account Deletion
+      </h2>
+      <div class="dl-modal-body">
+        This will schedule your account for permanent deletion in <strong style="color:var(--text-primary);">14 days</strong>.
+        Logging in before then will cancel the deletion.<br><br>
+        To continue, type exactly:
+        <code style="color:var(--danger);font-family:var(--font-mono);">DELETE ACCOUNT</code>
+      </div>
+      <div class="delete-confirm-input">
+        <input
+          type="text"
+          id="delete-confirm-input"
+          placeholder="Type DELETE ACCOUNT to confirm"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type DELETE ACCOUNT to confirm deletion"
+        >
+      </div>
+      <div class="modal-actions mt-md">
+        <button class="btn btn-ghost" id="delete-cancel-btn">Cancel</button>
+        <button class="btn btn-danger" id="delete-confirm-btn" disabled>
+          <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+          Confirm Deletion
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCRIPTS ── -->
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/learn.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/account.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
