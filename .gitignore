@@ -1,0 +1,37 @@
+# ============================================================
+# F-Society — .gitignore
+# EXN STUDIO
+# ============================================================
+
+# ── LOCAL ENV (NEVER commit this) ────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# ── NETLIFY LOCAL ─────────────────────────────────────────────
+.netlify/
+
+# ── NODE (if you ever add local tooling) ──────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── OS FILES ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── EDITOR ────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ── LOGS ──────────────────────────────────────────────────────
+*.log
+logs/

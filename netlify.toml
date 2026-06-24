@@ -7,6 +7,11 @@
 
 # ── Pretty URL routing ────────────────────────────────────
 [[redirects]]
+  from  = "/about"
+  to    = "/about.html"
+  status = 200
+
+[[redirects]]
   from  = "/app"
   to    = "/index.html"
   status = 200

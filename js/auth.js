@@ -19,17 +19,27 @@
   const USERNAME_RE   = /^[a-zA-Z0-9_]{4,24}$/;
   const URL_RE        = /https?:\/\/|www\./i;
 
-  /* ── SUPABASE CLIENT ─────────────────────────────────────── */
+  /* ── SUPABASE CLIENT (lazy) ──────────────────────────────── */
+  // We use a lazy getter so the client is only created after
+  // window.__ENV__ has been populated by /.netlify/functions/env.
+  let _sb = null;
+
   function getSupabase() {
+    if (_sb) return _sb;
     const env = window.__ENV__ || {};
     if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) {
-      console.error('[F-Society] Supabase env vars missing. Configure Netlify env.');
+      console.error('[F-Society] Supabase env vars missing. Ensure /.netlify/functions/env loaded first.');
       return null;
     }
-    return supabase.createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+    _sb = supabase.createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+    return _sb;
   }
 
-  const sb = getSupabase();
+  // Proxy getter so callers can use Auth.sb and always get current client
+  Object.defineProperty(window, '_fsocSb', {
+    get: getSupabase,
+    configurable: true,
+  });
 
   /* ── RATE LIMIT HELPERS ──────────────────────────────────── */
   function getRLData() {
@@ -218,6 +228,7 @@
         return;
       }
 
+      const sb = getSupabase();
       if (!sb) {
         Toast.error('Configuration error. Contact administrator.');
         return;
@@ -296,6 +307,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const sb = getSupabase();
       if (!sb) {
         Toast.error('Configuration error. Contact administrator.');
         return;
@@ -358,6 +370,7 @@
 
   /* ── SESSION CHECK ───────────────────────────────────────── */
   async function checkSession() {
+    const sb = getSupabase();
     if (!sb) return null;
     try {
       const { data } = await sb.auth.getSession();
@@ -367,6 +380,7 @@
 
   /* ── LOGOUT ──────────────────────────────────────────────── */
   async function logout() {
+    const sb = getSupabase();
     if (!sb) { window.location.href = 'login.html'; return; }
     try {
       await sb.auth.signOut();
@@ -379,6 +393,7 @@
 
   /* ── CANCEL PENDING DELETION ─────────────────────────────── */
   async function cancelPendingDeletion(userId) {
+    const sb = getSupabase();
     if (!sb || !userId) return;
     try {
       await sb.from('pending_deletions').delete().eq('user_id', userId);
@@ -396,7 +411,7 @@
 
   /* ── EXPORTS ─────────────────────────────────────────────── */
   window.Auth = {
-    sb,
+    get sb() { return getSupabase(); },
     initSignup,
     initLogin,
     checkSession,

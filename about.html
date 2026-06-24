@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F-Society — About</title>
+  <meta name="description" content="About F-Society — the cybersecurity education platform by EXN Studio. Our mission, values, community goals, and roadmap.">
+  <link rel="canonical" href="https://exn-fsociety.netlify.app/about.html">
+
+  <meta property="og:title" content="F-Society — About">
+  <meta property="og:description" content="Learn about F-Society's mission, ethical hacking focus, community goals, and the team behind EXN Studio.">
+  <meta property="og:image" content="https://exn-fsociety.netlify.app/assets/og-image.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://exn-fsociety.netlify.app/about.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="F-Society — About">
+  <meta name="twitter:description" content="The cybersecurity education platform by EXN Studio.">
+  <meta name="twitter:image" content="https://exn-fsociety.netlify.app/assets/og-image.svg">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='4' y='24' font-size='20' fill='%2300ff41' font-family='monospace'>F</text></svg>">
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .about-page {
+      min-height: 100vh;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-xxl) var(--space-xl);
+    }
+
+    .about-hero {
+      padding-bottom: var(--space-xxl);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-xxl);
+    }
+
+    .about-hero .hero-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .about-hero h1 {
+      font-size: 2.2rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: var(--space-lg);
+      letter-spacing: 0.04em;
+    }
+
+    .about-hero h1 span { color: var(--accent); }
+
+    .about-hero .lead {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    .about-section {
+      margin-bottom: var(--space-xxl);
+    }
+
+    .about-section h2 {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .about-section h2 ion-icon {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .about-section p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: var(--space-md);
+    }
+
+    .about-section p:last-child { margin-bottom: 0; }
+
+    .about-section strong { color: var(--text-primary); font-weight: normal; }
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .principle-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: var(--space-lg);
+    }
+
+    .principle-card .p-icon {
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    .principle-card h3 {
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.05em;
+    }
+
+    .principle-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .roadmap-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .roadmap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--border);
+    }
+
+    .roadmap-item.done   { border-left-color: var(--accent); }
+    .roadmap-item.in-progress { border-left-color: var(--warning); }
+    .roadmap-item.planned    { border-left-color: var(--border-focus); }
+
+    .roadmap-status {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .done       .roadmap-status { color: var(--accent);  background: var(--accent-dim); }
+    .in-progress .roadmap-status { color: var(--warning); background: var(--warning-dim); }
+    .planned    .roadmap-status { color: var(--text-muted); background: var(--bg-elevated); }
+
+    .roadmap-text h4 {
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .roadmap-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .studio-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: var(--space-xl);
+      display: flex;
+      gap: var(--space-xl);
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .studio-mark {
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 16px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .studio-info p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: var(--space-sm);
+    }
+
+    .studio-info a {
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .about-page { padding: var(--space-xl) var(--space-md); }
+      .about-hero h1 { font-size: 1.6rem; }
+      .principle-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="about-page" role="main">
+
+    <a href="login.html" class="page-back" aria-label="Back to login">
+      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+      Back
+    </a>
+
+    <!-- ── HERO ── -->
+    <div class="about-hero">
+      <div class="hero-label">
+        <ion-icon name="terminal-outline" aria-hidden="true"></ion-icon>
+        About F-Society
+      </div>
+      <h1>Built for those who <span>question</span> the system.</h1>
+      <p class="lead">
+        F-Society is a cybersecurity education platform designed for aspiring ethical hackers,
+        security researchers, and anyone serious about understanding how systems are attacked —
+        and how to defend them. We believe knowledge is the first line of defense.
+      </p>
+    </div>
+
+    <!-- ── WHAT IS F-SOCIETY ── -->
+    <div class="about-section" aria-labelledby="what-heading">
+      <h2 id="what-heading">
+        <ion-icon name="help-circle-outline" aria-hidden="true"></ion-icon>
+        What is F-Society?
+      </h2>
+      <p>
+        F-Society is a community-driven cybersecurity education platform hosted by
+        <strong>EXN Studio</strong>. Inspired by the culture of curiosity and technical
+        depth found in hacker communities and security research circles, F-Society provides
+        a space for structured learning, peer discussion, and knowledge exchange.
+      </p>
+      <p>
+        The name draws from the ethos of questioning the systems around us — not to destroy,
+        but to understand. Every vulnerability that gets patched started with someone asking:
+        <em style="color:var(--text-primary);">"What happens if I do this?"</em>
+      </p>
+      <p>
+        Unlike surface-level cybersecurity content, F-Society goes deeper — covering real
+        offensive techniques, defensive implementations, tooling, methodology, and the
+        mindset that separates security professionals from script kiddies.
+      </p>
+    </div>
+
+    <!-- ── WHY IT WAS CREATED ── -->
+    <div class="about-section" aria-labelledby="why-heading">
+      <h2 id="why-heading">
+        <ion-icon name="flash-outline" aria-hidden="true"></ion-icon>
+        Why It Was Created
+      </h2>
+      <p>
+        Cybersecurity education in many parts of the world — including Sub-Saharan Africa —
+        remains fragmented, expensive, or inaccessible. Quality resources exist, but they are
+        scattered across forums, YouTube channels, Discord servers, and paywalled platforms.
+      </p>
+      <p>
+        F-Society was created to <strong>centralize and democratize</strong> cybersecurity
+        knowledge. A single platform where learners can read structured articles, discuss
+        techniques with peers, and share resources — all within a community that takes
+        security seriously.
+      </p>
+      <p>
+        EXN Studio builds tools and platforms that give African developers and security
+        professionals access to the same quality of resources as anyone else in the world.
+        F-Society is part of that mission.
+      </p>
+    </div>
+
+    <!-- ── EDUCATIONAL MISSION ── -->
+    <div class="about-section" aria-labelledby="mission-heading">
+      <h2 id="mission-heading">
+        <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+        Educational Mission
+      </h2>
+      <p>
+        F-Society's core mission is straightforward: <strong>teach people how to think
+        like attackers so they can defend like professionals.</strong>
+      </p>
+
+      <div class="principle-grid">
+        <div class="principle-card">
+          <ion-icon name="shield-checkmark-outline" class="p-icon" aria-hidden="true"></ion-icon>
+          <h3>Authorized First</h3>
+          <p>Every technique taught is framed around authorized, controlled environments. We never teach attack methods without the defensive context.</p>
+        </div>
+        <div class="principle-card">
+          <ion-icon name="layers-outline" class="p-icon" aria-hidden="true"></ion-icon>
+          <h3>Depth Over Breadth</h3>
+          <p>We go deep on concepts — not just "run this tool" but "understand why this works and what the defender sees."</p>
+        </div>
+        <div class="principle-card">
+          <ion-icon name="people-outline" class="p-icon" aria-hidden="true"></ion-icon>
+          <h3>Community-Driven</h3>
+          <p>Members contribute to discussions and share resources. Knowledge grows collectively — not just top-down from a single author.</p>
+        </div>
+        <div class="principle-card">
+          <ion-icon name="globe-outline" class="p-icon" aria-hidden="true"></ion-icon>
+          <h3>Accessible</h3>
+          <p>Free to join. No paywalls on articles. Built to run on slow connections and lower-end devices.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ETHICAL HACKING FOCUS ── -->
+    <div class="about-section" aria-labelledby="ethics-heading">
+      <h2 id="ethics-heading">
+        <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
+        Ethical Hacking Focus
+      </h2>
+      <p>
+        F-Society focuses on <strong>ethical hacking</strong> — the authorized practice of
+        probing systems to identify vulnerabilities before malicious actors do. This includes:
+      </p>
+      <p>
+        <strong>Offensive security:</strong> penetration testing methodology, reconnaissance,
+        enumeration, exploitation techniques, privilege escalation, and post-exploitation —
+        all for understanding attack surfaces in authorized contexts.
+      </p>
+      <p>
+        <strong>Defensive security:</strong> log analysis, intrusion detection, hardening
+        techniques, network monitoring, incident response, and security architecture —
+        building the knowledge to detect and respond to real threats.
+      </p>
+      <p>
+        <strong>Tools and tooling:</strong> practical use of industry-standard tools
+        (Nmap, Metasploit, Wireshark, Burp Suite, Aircrack-ng, and others) within
+        lab and authorized environments only.
+      </p>
+      <p>
+        Everything on F-Society operates under a strict ethical framework. Unauthorized
+        access to systems is illegal and will never be promoted here.
+      </p>
+    </div>
+
+    <!-- ── COMMUNITY GOALS ── -->
+    <div class="about-section" aria-labelledby="community-heading">
+      <h2 id="community-heading">
+        <ion-icon name="people-circle-outline" aria-hidden="true"></ion-icon>
+        Community Goals
+      </h2>
+      <p>
+        F-Society is more than a content library. It is a community with specific goals
+        for how members interact and grow together:
+      </p>
+      <p>
+        <strong>Peer learning:</strong> Members with different experience levels contribute
+        to discussions. Beginners ask questions. Veterans share hard-earned knowledge.
+        Everyone benefits.
+      </p>
+      <p>
+        <strong>Responsible disclosure culture:</strong> We foster an environment where
+        discovering a vulnerability means reporting it, not exploiting it. Responsible
+        disclosure is one of the most important skills in ethical hacking.
+      </p>
+      <p>
+        <strong>No toxicity:</strong> Technical communities can be hostile. F-Society is
+        committed to maintaining a professional, respectful environment where what matters
+        is your understanding — not your background.
+      </p>
+      <p>
+        <strong>Zambian and African presence in security:</strong> EXN Studio operates from
+        Zambia. F-Society actively works to increase African representation in the global
+        cybersecurity community.
+      </p>
+    </div>
+
+    <!-- ── ABOUT EXN STUDIO ── -->
+    <div class="about-section" aria-labelledby="studio-heading">
+      <h2 id="studio-heading">
+        <ion-icon name="business-outline" aria-hidden="true"></ion-icon>
+        About EXN Studio
+      </h2>
+      <div class="studio-card">
+        <div class="studio-mark">EXN</div>
+        <div class="studio-info">
+          <p>
+            EXN Studio is a web development and design studio based in <strong>Zambia</strong>,
+            building custom websites, web applications, e-commerce solutions, and specialized
+            tools for clients across Africa and beyond.
+          </p>
+          <p>
+            Founded on the belief that professional-grade software should be accessible to
+            businesses of all sizes, EXN Studio works across the full stack — HTML, CSS,
+            JavaScript, Python, Node.js, and integrations with modern platforms like Supabase
+            and Netlify.
+          </p>
+          <p>
+            F-Society is EXN Studio's open contribution to the global cybersecurity education
+            space — a platform built with the same care and production standards applied to
+            every client project.
+          </p>
+          <a href="https://exn-studio.netlify.app" target="_blank" rel="noopener"
+             aria-label="Visit EXN Studio website">
+            <ion-icon name="open-outline" aria-hidden="true"></ion-icon>
+            exn-studio.netlify.app
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ROADMAP ── -->
+    <div class="about-section" aria-labelledby="roadmap-heading">
+      <h2 id="roadmap-heading">
+        <ion-icon name="map-outline" aria-hidden="true"></ion-icon>
+        Future Roadmap
+      </h2>
+      <p>
+        F-Society is actively developed. Here is what has been built and what is coming:
+      </p>
+
+      <div class="roadmap-list" role="list">
+        <div class="roadmap-item done" role="listitem">
+          <span class="roadmap-status">Live</span>
+          <div class="roadmap-text">
+            <h4>Core Platform</h4>
+            <p>Authentication, real-time global chat, article knowledge base with search and tag filtering.</p>
+          </div>
+        </div>
+        <div class="roadmap-item done" role="listitem">
+          <span class="roadmap-status">Live</span>
+          <div class="roadmap-text">
+            <h4>File Sharing</h4>
+            <p>Secure .txt file sharing in chat with download warnings, daily limits, and Supabase Storage.</p>
+          </div>
+        </div>
+        <div class="roadmap-item done" role="listitem">
+          <span class="roadmap-status">Live</span>
+          <div class="roadmap-text">
+            <h4>Account Management</h4>
+            <p>Profile system, member IDs, and 14-day grace period account deletion.</p>
+          </div>
+        </div>
+        <div class="roadmap-item in-progress" role="listitem">
+          <span class="roadmap-status">Planned</span>
+          <div class="roadmap-text">
+            <h4>CTF Challenge Board</h4>
+            <p>Capture The Flag challenges hosted on the platform with hints, leaderboards, and write-up submissions.</p>
+          </div>
+        </div>
+        <div class="roadmap-item in-progress" role="listitem">
+          <span class="roadmap-status">Planned</span>
+          <div class="roadmap-text">
+            <h4>Learning Tracks</h4>
+            <p>Structured curriculum paths — beginner to advanced — across web security, network security, and forensics.</p>
+          </div>
+        </div>
+        <div class="roadmap-item planned" role="listitem">
+          <span class="roadmap-status">Future</span>
+          <div class="roadmap-text">
+            <h4>Private Rooms</h4>
+            <p>Invite-only discussion rooms for study groups or team red/blue team exercises.</p>
+          </div>
+        </div>
+        <div class="roadmap-item planned" role="listitem">
+          <span class="roadmap-status">Future</span>
+          <div class="roadmap-text">
+            <h4>Tool Reviews & Lab Guides</h4>
+            <p>In-depth guides for setting up home lab environments on a budget — VMs, network ranges, and vulnerable-by-design machines.</p>
+          </div>
+        </div>
+        <div class="roadmap-item planned" role="listitem">
+          <span class="roadmap-status">Future</span>
+          <div class="roadmap-text">
+            <h4>Member Reputation System</h4>
+            <p>Quality-based reputation tracking for contributions — not a follower count, but a depth-of-knowledge indicator.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:var(--space-xl) 0;border-top:1px solid var(--border);display:flex;gap:var(--space-md);flex-wrap:wrap;">
+      <a href="login.html" class="btn btn-primary">
+        <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
+        Login to F-Society
+      </a>
+      <a href="signup.html" class="btn btn-ghost">
+        <ion-icon name="person-add-outline" aria-hidden="true"></ion-icon>
+        Create Account
+      </a>
+    </div>
+
+    <p style="font-size:0.68rem;color:var(--text-muted);padding-bottom:var(--space-xl);">
+      &copy; 2025 EXN Studio ·
+      <a href="privacy.html">Privacy</a> ·
+      <a href="terms.html">Terms</a> ·
+      <a href="warning.html">Warning</a> ·
+      <a href="https://exn-studio.netlify.app" target="_blank" rel="noopener">EXN Studio</a>
+    </p>
+
+  </div>
+</body>
+</html>

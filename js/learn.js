@@ -19,28 +19,20 @@
     bindTagFilter();
   }
 
-  /* ── LOAD FROM JSONBIN ───────────────────────────────────── */
+  /* ── LOAD VIA NETLIFY PROXY ──────────────────────────────── */
+  // Articles are fetched through /.netlify/functions/articles so
+  // the JSONBin API key never appears in client-side code or requests.
   async function loadArticles() {
-    const env = window.__ENV__ || {};
-    const binId  = env.JSONBIN_BIN_ID;
-    const apiKey = env.JSONBIN_API_KEY;
-
-    if (!binId || !apiKey) {
-      renderError('JSONBin not configured. Set JSONBIN_BIN_ID and JSONBIN_API_KEY in Netlify environment variables.');
-      return;
-    }
-
     try {
-      const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-        headers: {
-          'X-Master-Key': apiKey,
-          'X-Bin-Meta':   'false',
-        }
+      const res = await fetch('/.netlify/functions/articles', {
+        headers: { 'Accept': 'application/json' },
       });
 
-      if (!res.ok) throw new Error(`JSONBin responded ${res.status}`);
+      if (!res.ok) throw new Error(`Articles proxy responded ${res.status}`);
 
       const data = await res.json();
+
+      if (data.error) throw new Error(data.error);
 
       // Support both { articles: [] } and direct array
       const raw = Array.isArray(data) ? data : (data.articles || data.record || []);
