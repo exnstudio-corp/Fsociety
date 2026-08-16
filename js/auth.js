@@ -62,6 +62,16 @@
       return { limited: true, cooldownUntil: d.cooldownUntil };
     }
 
+    // Cooldown was set and has now fully elapsed -> fully reset instead of
+    // re-deriving a stale (already-past) cooldownUntil from lastAttempt.
+    // (Previously this fell through to the attempts>=MAX check below, which
+    // recomputed a cooldownUntil that was already in the past, reporting
+    // limited:true forever with a 00:00:00 countdown.)
+    if (d.cooldownUntil && now >= d.cooldownUntil) {
+      saveRLData({ attempts: 0, lastAttempt: 0, cooldownUntil: 0 });
+      return { limited: false };
+    }
+
     // Reset window if 24h has passed
     if (now - d.lastAttempt > RATE_LIMIT.WINDOW_MS) {
       saveRLData({ attempts: 0, lastAttempt: 0, cooldownUntil: 0 });
@@ -275,9 +285,24 @@
 
     function showRateLimit(cooldownUntil) {
       if (!rateLimitEl) return;
+
+      // If the cooldown has already elapsed (e.g. user reopened the page
+      // hours later), don't even show the box — just clear state and bail.
+      if (cooldownUntil <= Date.now()) {
+        saveRLData({ attempts: 0, lastAttempt: 0, cooldownUntil: 0 });
+        rateLimitEl.classList.remove('visible');
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
       rateLimitEl.classList.add('visible');
       if (submitBtn) submitBtn.disabled = true;
 
+      // Declared with `let` and assigned before the first update() call so
+      // the immediate synchronous invocation below can safely reference it
+      // (previously `const iv` was in its temporal dead zone at that point,
+      // so clearInterval(iv) threw and the whole reset path never ran).
+      let iv;
       const update = () => {
         const remaining = Math.max(0, cooldownUntil - Date.now());
         const hrs  = Math.floor(remaining / 3600000);
@@ -295,7 +320,7 @@
         }
       };
       update();
-      const iv = setInterval(update, 1000);
+      iv = setInterval(update, 1000);
     }
   }
 
