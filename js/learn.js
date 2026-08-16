@@ -78,7 +78,7 @@
     if (!articles.length) {
       grid.innerHTML = `
         <div class="empty-state">
-          <ion-icon name="document-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
           <p>No articles found.</p>
         </div>`;
       return;
@@ -104,7 +104,7 @@
           ${(article.tags || []).map(t => `<span class="article-tag">${_escHtml(t)}</span>`).join('')}
         </div>
         <button class="btn btn-ghost btn-sm" aria-label="Read: ${_escHtml(article.title)}">
-          <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           Read
         </button>
       </article>
@@ -215,6 +215,95 @@
     };
   }
 
+  /* ── SUPPORT / "BUY ME A COFFEE" PANEL ───────────────────── */
+  // Shown from a trigger inside the lesson reader. Lets readers copy a
+  // crypto address instead of hitting the network, so it never depends
+  // on any payment SDK or external script.
+  const CRYPTO_ADDRESSES = [
+    { symbol: 'BTC',  name: 'Bitcoin',        icon: 'fa-brands fa-bitcoin',   address: 'bc1qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' },
+    { symbol: 'SOL',  name: 'Solana',         icon: 'fa-solid fa-s',          address: 'SoLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' },
+    { symbol: 'USDT', name: 'Tether (TRC20)', icon: 'fa-solid fa-t',          address: 'TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' },
+    { symbol: 'ETH',  name: 'Ethereum',       icon: 'fa-brands fa-ethereum',  address: '0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' },
+    { symbol: 'LTC',  name: 'Litecoin',       icon: 'fa-solid fa-l',          address: 'ltc1qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' },
+  ];
+
+  function renderSupportPanel() {
+    const list = document.getElementById('crypto-list');
+    if (!list) return;
+    list.innerHTML = CRYPTO_ADDRESSES.map((c, i) => `
+      <div class="crypto-row">
+        <div class="crypto-symbol" aria-hidden="true"><i class="${c.icon}"></i></div>
+        <div class="crypto-info">
+          <div class="crypto-name">${_escHtml(c.name)}</div>
+          <div class="crypto-address" id="crypto-addr-${i}">${_escHtml(c.address)}</div>
+        </div>
+        <button class="crypto-copy-btn" type="button"
+                aria-label="Copy ${_escHtml(c.name)} address"
+                onclick="Learn.copyCrypto(${i}, this)">
+          <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          Copy
+        </button>
+      </div>
+    `).join('');
+  }
+
+  function copyCrypto(index, btnEl) {
+    const entry = CRYPTO_ADDRESSES[index];
+    if (!entry) return;
+
+    const done = (ok) => {
+      if (!btnEl) return;
+      const original = btnEl.innerHTML;
+      btnEl.classList.toggle('copied', ok);
+      btnEl.innerHTML = ok
+        ? `<i class="fa-solid fa-check" aria-hidden="true"></i> Copied`
+        : `<i class="fa-solid fa-xmark" aria-hidden="true"></i> Failed`;
+      setTimeout(() => {
+        btnEl.classList.remove('copied');
+        btnEl.innerHTML = original;
+      }, 1800);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(entry.address)
+        .then(() => done(true))
+        .catch(() => done(false));
+    } else {
+      // Fallback for older/non-secure contexts
+      try {
+        const tmp = document.createElement('textarea');
+        tmp.value = entry.address;
+        tmp.style.position = 'fixed';
+        tmp.style.opacity = '0';
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand('copy');
+        document.body.removeChild(tmp);
+        done(true);
+      } catch {
+        done(false);
+      }
+    }
+  }
+
+  function openSupport() {
+    const modal = document.getElementById('support-modal');
+    if (!modal) return;
+    renderSupportPanel();
+    modal.classList.remove('hidden');
+    modal.removeAttribute('aria-hidden');
+    modal.onclick = (e) => { if (e.target === modal) closeSupport(); };
+    const closeBtn = document.getElementById('support-close-btn');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeSupport() {
+    const modal = document.getElementById('support-modal');
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
   function closeModal() {
     const modal = document.getElementById('article-modal');
     if (!modal) return;
@@ -228,7 +317,7 @@
     if (!grid) return;
     grid.innerHTML = `
       <div class="empty-state">
-        <ion-icon name="alert-circle-outline" aria-hidden="true"></ion-icon>
+        <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
         <p>${_escHtml(msg)}</p>
       </div>`;
   }
@@ -251,10 +340,16 @@
 
   /* ── KEYBOARD SHORTCUTS ──────────────────────────────────── */
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') {
+      closeSupport();
+      closeModal();
+    }
   });
 
   /* ── EXPORTS ─────────────────────────────────────────────── */
-  window.Learn = { init, openArticle, closeModal, filterTag };
+  window.Learn = {
+    init, openArticle, closeModal, filterTag,
+    openSupport, closeSupport, copyCrypto,
+  };
 
 })();
