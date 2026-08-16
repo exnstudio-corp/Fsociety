@@ -349,7 +349,7 @@ h4 { font-size: 1rem; }
   position: relative;
 }
 
-.form-input-wrap ion-icon {
+.form-input-wrap i {
   position: absolute;
   left: var(--space-md);
   top: 50%;
@@ -556,7 +556,7 @@ h4 { font-size: 1rem; }
   user-select: none;
 }
 
-.nav-item ion-icon {
+.nav-item i {
   font-size: 1.1rem;
   flex-shrink: 0;
 }
@@ -665,7 +665,7 @@ h4 { font-size: 1rem; }
   gap: var(--space-sm);
 }
 
-.section-title ion-icon { font-size: 0.9rem; color: var(--accent); }
+.section-title i { font-size: 0.9rem; color: var(--accent); }
 
 /* ── TERMINAL LOADER ─────────────────────────────────────── */
 #terminal-loader {
@@ -751,7 +751,7 @@ h4 { font-size: 1rem; }
   margin-bottom: var(--space-lg);
 }
 
-.search-bar-wrap ion-icon {
+.search-bar-wrap i {
   position: absolute;
   left: var(--space-md);
   top: 50%;
@@ -931,7 +931,7 @@ h4 { font-size: 1rem; }
   color: var(--text-muted);
 }
 
-.empty-state ion-icon {
+.empty-state i {
   font-size: 2rem;
   display: block;
   margin: 0 auto var(--space-md);
@@ -999,7 +999,7 @@ h4 { font-size: 1rem; }
   color: var(--text-secondary);
 }
 
-.chat-msg-body.is-file ion-icon { color: var(--info); font-size: 1rem; }
+.chat-msg-body.is-file i { color: var(--info); font-size: 1rem; }
 .chat-msg-body.is-file .file-dl {
   color: var(--info);
   cursor: pointer;
@@ -1205,16 +1205,16 @@ h4 { font-size: 1rem; }
   animation: toast-out 0.2s ease forwards;
 }
 
-.toast ion-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.toast i { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
 
 .toast.success { border-left: 3px solid var(--accent); }
-.toast.success ion-icon { color: var(--accent); }
+.toast.success i { color: var(--accent); }
 .toast.error   { border-left: 3px solid var(--danger); }
-.toast.error   ion-icon { color: var(--danger); }
+.toast.error   i { color: var(--danger); }
 .toast.warning { border-left: 3px solid var(--warning); }
-.toast.warning ion-icon { color: var(--warning); }
+.toast.warning i { color: var(--warning); }
 .toast.info    { border-left: 3px solid var(--info); }
-.toast.info    ion-icon { color: var(--info); }
+.toast.info    i { color: var(--info); }
 
 @keyframes toast-in {
   from { opacity: 0; transform: translateX(12px); }
@@ -1386,7 +1386,7 @@ h4 { font-size: 1rem; }
   background: none;
 }
 
-.mobile-nav-item ion-icon { font-size: 1.2rem; }
+.mobile-nav-item i { font-size: 1.2rem; }
 
 .mobile-nav-item.active { color: var(--accent); }
 
@@ -1473,3 +1473,154 @@ h4 { font-size: 1rem; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
 .w-full { width: 100%; }
+
+/* ── TOAST ICON GLYPHS (self-contained, no external icon lib) ──
+   Rendered via CSS ::before so toasts never depend on unpkg/CDN
+   icon fetches — avoids the CSP/network breakage that ion-icon
+   SVG requests were causing. ── */
+.toast-glyph {
+  flex-shrink: 0;
+  margin-top: 1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: bold;
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+.toast.success .toast-glyph { background: var(--accent);  color: #000; }
+.toast.error   .toast-glyph { background: var(--danger);  color: #000; }
+.toast.warning .toast-glyph { background: var(--warning); color: #000; }
+.toast.info    .toast-glyph { background: var(--info);    color: #000; }
+.toast.success .toast-glyph::before { content: "✓"; }
+.toast.error   .toast-glyph::before { content: "✕"; }
+.toast.warning .toast-glyph::before { content: "!"; }
+.toast.info    .toast-glyph::before { content: "i"; }
+
+/* ── ACCOUNT: LEGAL & ABOUT LINKS ─────────────────────────── */
+.account-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.account-link-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: border-color var(--t-fast), color var(--t-fast);
+}
+.account-link-row:hover {
+  border-color: var(--border-focus);
+  color: var(--text-primary);
+}
+.account-link-row i { color: var(--accent); width: 1rem; text-align: center; }
+
+/* ── SUPPORT / "BUY ME A COFFEE" PANEL ────────────────────── */
+.support-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  background: transparent;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background var(--t-fast), box-shadow var(--t-fast);
+}
+.support-trigger:hover {
+  background: var(--accent-glow);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.support-modal .modal-box { max-width: 460px; }
+
+.support-intro {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.crypto-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.crypto-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.crypto-symbol {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.crypto-info { flex: 1; min-width: 0; }
+.crypto-name {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.crypto-address {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.crypto-copy-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px var(--space-sm);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
+}
+.crypto-copy-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.crypto-copy-btn.copied {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
