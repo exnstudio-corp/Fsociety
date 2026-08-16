@@ -34,9 +34,8 @@
   <!-- ── Supabase CDN ── -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 
-  <!-- ── Ion Icons ── -->
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- ── Font Awesome (icons) ── -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <!-- ── Styles ── -->
   <link rel="stylesheet" href="css/style.css">
@@ -44,9 +43,9 @@
   <!-- ── CSP (Content Security Policy) ── -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-inline';
-    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-    font-src 'self' https://fonts.gstatic.com;
+    script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+    style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline';
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
     img-src 'self' data: https:;
     connect-src 'self' https://*.supabase.co https://api.jsonbin.io wss://*.supabase.co;
     worker-src 'none';
@@ -92,21 +91,21 @@
         <li>
           <div class="nav-item" data-section="learn" role="button" tabindex="0"
                aria-current="page" aria-label="Learn - educational content">
-            <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+            <i class="fa-solid fa-book" aria-hidden="true"></i>
             Learn
           </div>
         </li>
         <li>
           <div class="nav-item" data-section="chat" role="button" tabindex="0"
                aria-current="false" aria-label="Chat - community discussion">
-            <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+            <i class="fa-solid fa-comments" aria-hidden="true"></i>
             Chat
           </div>
         </li>
         <li>
           <div class="nav-item" data-section="account" role="button" tabindex="0"
                aria-current="false" aria-label="Account settings">
-            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <i class="fa-solid fa-user" aria-hidden="true"></i>
             Account
           </div>
         </li>
@@ -119,7 +118,7 @@
         </div>
         <button class="btn-logout" data-action="logout"
                 aria-label="Logout from F-Society">
-          <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
           Logout
         </button>
       </div>
@@ -132,14 +131,14 @@
       <section id="learn-panel" class="section-panel active" aria-labelledby="learn-heading">
         <div class="section-header">
           <h1 class="section-title" id="learn-heading">
-            <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+            <i class="fa-solid fa-book" aria-hidden="true"></i>
             Knowledge Base
           </h1>
         </div>
 
         <!-- Search -->
         <div class="search-bar-wrap">
-          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
           <input
             type="search"
             id="search-input"
@@ -160,7 +159,7 @@
       <section id="chat-panel" class="section-panel" aria-labelledby="chat-heading">
         <div class="section-header">
           <h1 class="section-title" id="chat-heading">
-            <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+            <i class="fa-solid fa-comments" aria-hidden="true"></i>
             Global Chat
           </h1>
         </div>
@@ -182,13 +181,13 @@
               ></textarea>
               <button class="btn btn-primary" id="chat-send-btn"
                       aria-label="Send message" disabled>
-                <ion-icon name="send-outline" aria-hidden="true"></ion-icon>
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               </button>
             </div>
             <div class="chat-toolbar">
               <button class="btn btn-ghost btn-sm" id="chat-upload-btn"
                       aria-label="Upload a .txt file (max 5KB)">
-                <ion-icon name="attach-outline" aria-hidden="true"></ion-icon>
+                <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
                 Attach .txt
               </button>
               <input type="file" id="file-upload-input" accept=".txt" aria-hidden="true" tabindex="-1">
@@ -205,7 +204,7 @@
       <section id="account-panel" class="section-panel" aria-labelledby="account-heading">
         <div class="section-header">
           <h1 class="section-title" id="account-heading">
-            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <i class="fa-solid fa-user" aria-hidden="true"></i>
             Account
           </h1>
         </div>
@@ -243,6 +242,25 @@
             </div>
           </div>
 
+          <!-- Legal & About -->
+          <div class="account-card">
+            <h2>Legal & About</h2>
+            <div class="account-links">
+              <a class="account-link-row" href="about.html">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                About F-Society
+              </a>
+              <a class="account-link-row" href="terms.html">
+                <i class="fa-solid fa-file-contract" aria-hidden="true"></i>
+                Terms & Conditions
+              </a>
+              <a class="account-link-row" href="privacy.html">
+                <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                Privacy Policy
+              </a>
+            </div>
+          </div>
+
           <!-- Danger zone -->
           <div class="account-card">
             <h2>Danger Zone</h2>
@@ -252,7 +270,7 @@
             </p>
             <button class="btn btn-danger" id="delete-account-btn"
                     aria-label="Request account deletion">
-              <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+              <i class="fa-solid fa-trash" aria-hidden="true"></i>
               Delete Account
             </button>
           </div>
@@ -262,7 +280,7 @@
             <h2>Session</h2>
             <button class="btn btn-ghost" data-action="logout"
                     aria-label="Logout from F-Society">
-              <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+              <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
               Logout
             </button>
           </div>
@@ -277,17 +295,17 @@
       <div class="mobile-nav-inner">
         <button class="mobile-nav-item active" data-section="learn"
                 aria-label="Learn" aria-current="page">
-          <ion-icon name="book-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-book" aria-hidden="true"></i>
           Learn
         </button>
         <button class="mobile-nav-item" data-section="chat"
                 aria-label="Chat" aria-current="false">
-          <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-comments" aria-hidden="true"></i>
           Chat
         </button>
         <button class="mobile-nav-item" data-section="account"
                 aria-label="Account" aria-current="false">
-          <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-user" aria-hidden="true"></i>
           Account
         </button>
       </div>
@@ -301,12 +319,37 @@
     <div class="modal-box">
       <button class="modal-close" id="modal-close-btn"
               aria-label="Close article" onclick="Learn.closeModal()">
-        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
       </button>
       <h2 class="modal-title" id="modal-title"></h2>
       <div class="modal-meta" id="modal-meta"></div>
       <div class="article-tags mb-md" id="modal-tags"></div>
       <div class="modal-content" id="modal-content-body"></div>
+      <button class="support-trigger" type="button" onclick="Learn.openSupport()">
+        <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+        Enjoying this lesson? Buy me a coffee — help me get a domain
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ SUPPORT / CRYPTO DONATION MODAL ═══ -->
+  <div id="support-modal" class="modal-overlay support-modal hidden"
+       role="dialog" aria-modal="true" aria-labelledby="support-modal-heading" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="support-close-btn"
+              aria-label="Close support panel" onclick="Learn.closeSupport()">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <h2 class="modal-title" id="support-modal-heading">
+        <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+        Support F-Society
+      </h2>
+      <p class="support-intro">
+        F-Society is free and ad-free. If a lesson helped you out, a small
+        crypto tip goes toward hosting costs and a proper domain. Tap
+        "Copy" next to any address below — no wallet connection required.
+      </p>
+      <div class="crypto-list" id="crypto-list"></div>
     </div>
   </div>
 
@@ -315,7 +358,7 @@
        role="dialog" aria-modal="true" aria-labelledby="dl-modal-heading" aria-hidden="true">
     <div class="modal-box" style="max-width:440px;">
       <h2 class="modal-title" id="dl-modal-heading" style="font-size:1rem;color:var(--warning);">
-        <ion-icon name="warning-outline" aria-hidden="true"></ion-icon>
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
         File Download Warning
       </h2>
       <div class="dl-modal-warn">
@@ -331,7 +374,7 @@
       <div class="modal-actions">
         <button class="btn btn-ghost" id="dl-cancel-btn">Cancel</button>
         <button class="btn btn-danger" id="dl-proceed-btn">
-          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
           Download Anyway
         </button>
       </div>
@@ -343,7 +386,7 @@
        role="dialog" aria-modal="true" aria-labelledby="delete-modal-heading" aria-hidden="true">
     <div class="modal-box" style="max-width:440px;">
       <h2 class="modal-title" id="delete-modal-heading" style="font-size:1rem;color:var(--danger);">
-        <ion-icon name="warning-outline" aria-hidden="true"></ion-icon>
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
         Confirm Account Deletion
       </h2>
       <div class="dl-modal-body">
@@ -365,7 +408,7 @@
       <div class="modal-actions mt-md">
         <button class="btn btn-ghost" id="delete-cancel-btn">Cancel</button>
         <button class="btn btn-danger" id="delete-confirm-btn" disabled>
-          <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+          <i class="fa-solid fa-trash" aria-hidden="true"></i>
           Confirm Deletion
         </button>
       </div>
@@ -381,4 +424,5 @@
   <script src="js/app.js"></script>
 
 </body>
-</html>
+            </html>
+  
