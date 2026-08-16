@@ -8,13 +8,6 @@
 (function () {
   'use strict';
 
-  const ICONS = {
-    success: 'checkmark-circle-outline',
-    error:   'alert-circle-outline',
-    warning: 'warning-outline',
-    info:    'information-circle-outline',
-  };
-
   /**
    * Show a toast notification.
    * @param {string} message  - Text to display
@@ -35,7 +28,7 @@
     toast.className = `toast ${type}`;
     toast.setAttribute('role', 'status');
     toast.innerHTML = `
-      <ion-icon name="${ICONS[type] || ICONS.info}" aria-hidden="true"></ion-icon>
+      <span class="toast-glyph" aria-hidden="true"></span>
       <span>${_escapeHtml(message)}</span>
     `;
 
